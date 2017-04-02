@@ -9,8 +9,16 @@ export class Home extends React.Component {
         /* Call super() to execute parent constructor, inheriting from React.Component */
         super();
         this.state = {
-            age: props.initialAge
+            age: props.initialAge,
+            status: 0,
+            homeLink: "Changed Link"
         };
+
+        setTimeout(() => {
+            this.setState({
+                status: 1
+            });   
+        },3000)
     }
 
     onBirthday() {
@@ -18,6 +26,10 @@ export class Home extends React.Component {
         this.setState({
             age: this.state.age + 1
         });
+    }
+
+    onChangeLink() {
+        this.props.changeLink(this.state.homeLink);
     }
 
     render() {
@@ -30,10 +42,11 @@ export class Home extends React.Component {
             <div>
                 <h2> Welcome {this.props.name} ! </h2>
                 <p> I am {this.state.age} years old! </p>
+                <p> Status: {this.state.status} </p>
                 <hr/>
-
-                <button onClick={() => this.onBirthday()}className="btn btn-primary"> It's my birthday! </button> 
-         
+                <button onClick={() => this.onBirthday()} className="btn btn-primary"> It's my birthday! </button> 
+                <hr/>
+                <button onClick={() => this.onChangeLink()} className="btn btn-primary"> Change Header Link</button>
             </div>
         );
     }

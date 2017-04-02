@@ -7,6 +7,19 @@ import { Home } from "./components/Home";
 
 class App extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            homeLink: "Home"
+        };
+    }
+
+    onNameChange(newName) {
+        this.setState({
+            homeLink: newName
+        });
+    }
+
     /* Called by React.js whenever React thinks it needs to render the Component */
     render() {
         return(
@@ -14,13 +27,17 @@ class App extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-10 col-xs-offset-1"> 
-                        <Header/>
+                        <Header homeLink={this.state.homeLink}/>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-xs-10 col-xs-offset-1"> 
-                        <Home name={"Patrick"} initialAge={23}/>
+                        <Home 
+                          name={"Patrick"} 
+                          initialAge={23}
+                          changeLink={this.onNameChange.bind(this)}
+                        />
                     </div>
                 </div>
             </div>
