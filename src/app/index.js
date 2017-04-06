@@ -10,7 +10,8 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            homeLink: "Home"
+            homeLink: "Home",
+            homeMounted: true
         };
     }
 
@@ -20,8 +21,27 @@ class App extends React.Component {
         });
     }
 
+    onChangeHomeMounted() {
+        this.setState({
+            homeMounted: !this.state.homeMounted
+        });   
+    }
+
     /* Called by React.js whenever React thinks it needs to render the Component */
     render() {
+        let homeCmp = "";
+
+        if(this.state.homeMounted) {
+            homeCmp = (
+                  <Home 
+                      name={"Patrick"} 
+                      initialAge={23}
+                      changeLink={this.onNameChange.bind(this)}
+                      initialLinkName={this.state.homeLink}
+                  />
+            );
+        }
+
         return(
             /* JSX: Javascript mixed with XML: You can only render one root element */
             <div className="container">
@@ -33,12 +53,13 @@ class App extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-10 col-xs-offset-1"> 
-                        <Home 
-                          name={"Patrick"} 
-                          initialAge={23}
-                          changeLink={this.onNameChange.bind(this)}
-                          initialLinkName={this.state.homeLink}
-                        />
+                        {homeCmp}
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-xs-10 col-xs-offset-1"> 
+                        <button onClick={this.onChangeHomeMounted.bind(this)} className="btn btn-primary"> Unmount Home Component </button>
                     </div>
                 </div>
             </div>
